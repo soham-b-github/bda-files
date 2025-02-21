@@ -1,0 +1,19 @@
+Properties of OOP:
+- objects and classes
+- encapsulation
+- abstraction
+- inheritance
+- polymorphism
+
+class point2d:
+    # constructor
+    def __init__(self, x, y):
+        self.a = x
+        self.b = y
+
+
+In python, the convention for variables is (NOT enforced):
+a -> public
+_a -> protected
+__a -> private
+
