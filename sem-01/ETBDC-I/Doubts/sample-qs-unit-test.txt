@@ -1,0 +1,37 @@
+1. Votes to candidates (Using Mapper-Shuffler-Reducer concept) (Key-value pair: Candidate-Name paired to vote received which is 1)
+	a) Java use kore implementation
+	b) Hadoop use kore implementation
+	
+	Use Hadoop for MapReduce and java for client server!
+	Client (Participant Node/Computer Machine) pathay
+	Server (Host Computer Machine) receive kore
+	Client-server use kore, k-v pairs gulo MapReduce e pathabo!
+	
+	Client (Akta alada machine)
+	Server (Akta alada machine)
+	Simulation environment e, client akta terminal. Server arakta terminal.
+	
+	Server er kaaj conceptually is Reducer (Client er theke information niye, it does some kind of cumulative aggregation)
+	Client er kaaj conceptually is Mapper (Client read kore, key value map kore, server ke pathachhe)
+	
+	Example
+	1st entry voted to Rudrajit: So key-value pair is (Rudrajit-1)
+	2nd entry voted to Darpan: So key-value pair is (Darpan-1)
+	3rd entry voted to Rudrajit : So k-v pair is (Rudrajit-1)
+	4th entry voted to Indranil : So k-v pair is (Indranil-1)
+	... so on
+
+
+Note: Socket Programming with TCP (cont.)
+TCP is connection oriented.
+	Duto scenario (concepts):
+		1. Mail pathano. Computer A, computer B ke mail pathachhe. Suppose onek kota attachments achhe, queue kore chunks e pathay, via many routers, so that it reaches the
+		destination. This is possible only if connection of aligned routers are connected. So connection oriented. So TCP!
+		2. Video Streaming. Video continuously flow te thakte hobe. Chunks kore video pathano jabe na. Video streaming is, akta computer e video cholchhe, sheta onnyo
+		computer e dakha jachhe. So chunks kore since not possible, it is UDP!
+	
+	
+	Socket ta let be a Bari. Tar duto letterbox. Akta outgoing (OutputStream), arakta incoming (InputStream)
+	Tai Socket er object lagbe.
+	InputStream of oi socket object, er object lagbe, jaate file ta read kora jay. Read orthat InputStream
+	OutputStream of oi socket object, er object lagbe, jaate write kora jay. Write orthat Out

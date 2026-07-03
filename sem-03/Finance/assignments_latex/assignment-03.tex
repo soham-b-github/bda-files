@@ -1,0 +1,244 @@
+\hrule
+
+
+% --------------- Question 1 ------------------
+
+\section*{Question 1}
+Find tangential investment portfolio for N+1 risk free assets (N risky and 1 risk-free)
+
+% -------------- Solution --------------------
+
+\subsection*{Solution.}
+
+This report extends the analysis from Modern Portfolio Theory (MPT) by incorporating a \textbf{risk-free asset}. The introduction of a risk-free asset fundamentally changes the investment decision process. Instead of choosing a portfolio from a wide range of options on the Efficient Frontier based on risk tolerance, investors can now achieve superior risk-return trade-offs.
+
+The objective of this assignment is to find the single \textbf{Tangency Portfolio}, which represents the optimal portfolio of risky assets for all investors. This portfolio is found by maximizing the Sharpe Ratio. When combined with the risk-free asset, it forms the \textbf{Capital Market Line (CML)}, the new efficient frontier of possible investments.
+
+\subsection*{Theoretical Framework}
+
+\subsection*{Required Inputs}
+To find the Tangency Portfolio, we must first have the key outputs from the MPT analysis of the N risky assets (in our case, N=10 stocks):
+
+\begin{itemize}
+    \item \textbf{Expected Returns Vector ($\boldsymbol{\mu}$):} An $N \times 1$ vector of the average historical return for each stock.
+    \item \textbf{Covariance Matrix ($\mathbf{V}$):} An $N \times N$ matrix quantifying the risk of each stock and the co-movement between them.
+    \item \textbf{The Risk-Free Rate ($r_f$)}: A new input, this is the rate of return on a risk-free asset, such as a government Treasury Bill. It is an observed market rate.
+\end{itemize}
+
+\subsection*{The Sharpe Ratio}
+    The Sharpe Ratio measures the performance of an investment by comparing its return above the risk-free rate to its total risk (standard deviation). For any portfolio 'p', it is defined as:
+    \begin{equation}
+        S_p = \frac{\mu_p - r_f}{\sigma_p}
+    \end{equation}
+    The Tangency Portfolio is the unique portfolio on the Efficient Frontier that has the highest possible Sharpe Ratio.
+
+\subsection*{Tangency Portfolio Weights}
+The vector of weights for the Tangency Portfolio, $\mathbf{w}_{\text{tan}}$, can be calculated directly using the following formula:
+
+\begin{equation}
+    \mathbf{w}_{\text{tan}} = \frac{\mathbf{V}^{-1}(\boldsymbol{\mu} - r_f\mathbf{1})}{\mathbf{1}^T\mathbf{V}^{-1}(\boldsymbol{\mu} - r_f\mathbf{1})}
+\end{equation}
+
+The numerator, $\mathbf{V}^{-1}(\boldsymbol{\mu} - r_f\mathbf{1})$, calculates an unscaled set of optimal weights by adjusting the excess returns of each asset for risk and correlation. The denominator is a normalizing scalar that ensures the final weights sum to 1.
+
+\subsection*{Implementation in Python}
+
+The following code calculates the weights of the Tangency Portfolio and its corresponding expected return and standard deviation. It assumes that the variables \texttt{mu} and \texttt{V} (and its inverse \texttt{inv\_V}) have already been calculated as in the previous assignment.
+
+\subsection*{Calculating the Weights}
+We first define a risk-free rate and then apply the formula.
+
+\begin{lstlisting}[language=Python, caption=Calculating Tangency Portfolio Weights]
+    import numpy as np
+    
+    # Assume 'mu', 'V', 'inv_V', and 'ones' are pre-computed from Assignment 2
+    # mu: Vector of mean daily returns (10x1)
+    # V: Covariance matrix of daily returns (10x10)
+    # inv_V: Inverse of the covariance matrix (10x10)
+    # ones: Vector of ones (10x1)
+    
+    # Step 1: Define the risk-free rate
+    # NOTE: The inputs mu and V are based on DAILY data. Therefore, the risk-free
+    # rate must also be a DAILY rate for the formula to be consistent.
+    # For an annual rate of 5%, a simple daily rate is 0.05 / 252 trading days.
+    annual_rf = 0.05
+    rf = annual_rf / 252
+    
+    # Step 2: Calculate the vector of excess returns
+    # This is (mu - rf * ones) in matrix notation
+    excess_returns = mu - rf
+    
+    # Step 3: Calculate the numerator of the formula
+    numerator = inv_V @ excess_returns
+    
+    # Step 4: Calculate the denominator (the normalizing scalar)
+    denominator = ones.T @ numerator
+    
+    # Step 5: Calculate the final weights of the Tangency Portfolio
+    w_tan = numerator / denominator
+    
+    # --- Display the results ---
+    print("Tangency Portfolio Weights:")
+    # For display, let's create a dictionary with stock names
+    stocks = [
+        'HDFCBANK.NS', 'ITC.NS', 'TCS.NS', 'RELIANCE.NS', 'COALINDIA.NS',
+        'INFY.NS', 'BAJFINANCE.NS', 'ASIANPAINT.NS', 'LT.NS', 'BEL.NS'
+    ]
+    for i, stock in enumerate(stocks):
+        print(f"{stock}: {w_tan[i]:.4f}")
+    
+    print(f"\nSum of Weights: {np.sum(w_tan):.4f}")
+\end{lstlisting}
+
+\subsection*{Calculating Portfolio Coordinates}
+Once the weights are found, we can calculate the expected return and standard deviation to find its coordinates on the graph. Note that we must annualize these values for a more intuitive interpretation.
+
+\begin{lstlisting}[language=Python, caption=Calculating Tangency Portfolio Coordinates]
+# Calculate the expected daily return and variance of the portfolio
+mu_tan_daily = w_tan.T @ mu
+var_tan_daily = w_tan.T @ V @ w_tan
+std_tan_daily = np.sqrt(var_tan_daily)
+
+# Annualize the results
+mu_tan_annual = mu_tan_daily * 252
+std_tan_annual = std_tan_daily * np.sqrt(252)
+
+print("\nTangency Portfolio Performance:")
+print(f"Annualized Expected Return: {mu_tan_annual:.4f}")
+print(f"Annualized Standard Deviation: {std_tan_annual:.4f}")
+
+# Calculate the Sharpe Ratio
+sharpe_ratio = (mu_tan_annual - annual_rf) / std_tan_annual
+print(f"Sharpe Ratio: {sharpe_ratio:.4f}")
+\end{lstlisting}
+
+\subsection*{Results and Visualization}
+
+The calculated weights represent the single portfolio of risky assets that every investor should hold, regardless of their risk appetite. The investor's personal risk preference only determines how they allocate their capital between this Tangency Portfolio and the risk-free asset.
+
+\subsubsection*{The Capital Market Line (CML)}
+The CML is the new efficient frontier. It is a straight line starting from the risk-free rate on the y-axis and passing through the Tangency Portfolio. It represents all possible portfolios that can be formed by combining the risk-free asset and the Tangency Portfolio.
+
+The equation for the CML is:
+\begin{equation}
+    \mu_{CML} = r_f + \frac{\mu_{tan} - r_f}{\sigma_{tan}}\sigma_p
+\end{equation}
+
+\subsubsection*{Plotting the CML}
+The following code visualizes the original Efficient Frontier, the Minimum Variance Portfolio (MVP), the Tangency Portfolio, and the new, superior Capital Market Line.
+
+\begin{lstlisting}[language=Python, caption=Plotting the Efficient Frontier and CML, label={lst:cml_plot}]
+import matplotlib.pyplot as plt
+
+# Assume x_std and y from Assignment 2 are the coordinates for the old efficient 
+# frontier (annualized). And we have calculated mu_tan_annual and std_tan_annual.
+
+plt.figure(figsize=(12, 8))
+
+# 1. Plot the old efficient frontier
+plt.plot(x_std, y, 'b--', label='Efficient Frontier (Risky Assets)')
+
+# 2. Plot the Capital Market Line
+# Create CML points
+cml_x = np.linspace(0, max(x_std) * 1.1, 100)
+cml_y = annual_rf + sharpe_ratio * cml_x
+plt.plot(cml_x, cml_y, 'r-', linewidth=2, label='Capital Market Line (CML)')
+
+# 3. Mark the key portfolios
+# MVP (assuming its annualized coordinates are calculated)
+# plt.scatter(std_mvp_annual, mu_mvp_annual, marker='*', color='green', s=300, zorder=5, label='Minimum Variance Portfolio (MVP)')
+
+# Tangency Portfolio
+plt.scatter(std_tan_annual, mu_tan_annual, marker='o', color='purple', s=200, zorder=5, label='Tangency Portfolio')
+
+# Add labels and title
+plt.title('Efficient Frontier and Capital Market Line', fontsize=16)
+plt.xlabel('Annualized Standard Deviation (Risk)', fontsize=12)
+plt.ylabel('Annualized Expected Return', fontsize=12)
+plt.legend(fontsize=11)
+plt.grid(True)
+plt.xlim(left=0)
+plt.show()
+\end{lstlisting}
+
+\subsection*{Results}
+
+\textbf{Data chosen}
+\begin{table}[H]
+        \centering
+        \begin{tabular}{ll}
+        \toprule
+        \textbf{Ticker} & \textbf{Company} \\
+        \midrule
+        HDFCBANK.NS   & HDFC Bank \\
+        ITC.NS        & ITC Ltd \\
+        TCS.NS        & Tata Consultancy Services \\
+        RELIANCE.NS   & Reliance Industries \\
+        COALINDIA.NS  & Coal India \\
+        INFY.NS       & Infosys \\
+        BAJFINANCE.NS & Bajaj Finance \\
+        ASIANPAINT.NS & Asian Paints \\
+        LT.NS         & Larsen \& Toubro \\
+        BEL.NS        & Bharat Electronics Ltd \\
+        \midrule
+        \textbf{START DATE} & 2023-08-30\\
+        \textbf{END DATE} & 2025-08-30\\
+        \bottomrule
+    \end{tabular}
+    \caption{Selected Stocks and duration for Portfolio Analysis}
+\end{table}
+
+\textbf{Outcome}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lr}
+        \toprule
+        \textbf{Stock} & \textbf{Weight} \\
+        \midrule
+        HDFCBANK.NS     & $-0.4141$ \\
+        ITC.NS          & $-0.4403$ \\
+        TCS.NS          & $0.5232$ \\
+        RELIANCE.NS     & $0.7399$ \\
+        COALINDIA.NS    & $-0.1462$ \\
+        INFY.NS         & $0.2282$ \\
+        BAJFINANCE.NS   & $0.3879$ \\
+        ASIANPAINT.NS   & $-0.2430$ \\
+        LT.NS           & $-0.3757$ \\
+        BEL.NS          & $0.7401$ \\
+        \midrule
+        \textbf{Sum of Weights} & \textbf{1.0000} \\
+        \bottomrule
+    \end{tabular}
+    \caption{Tangency Portfolio Weights}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lr}
+        \textbf{Annualized Return:} & $1.2990$\\
+        \textbf{Annualized Standard Deviation:} & $0.3955$\\
+        \textbf{Sharpe Ratio:} & $3.1582$\\
+    \end{tabular}
+    \caption{Tangency Portfolio Performance}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{assignments/images/efficient_frontier_CML__FinAssignment03.png}
+    \caption{Efficient frontier \& CML}
+    \label{fig:eff_frontier_CML}
+\end{figure}
+% \vspace{1cm}
+
+% \begin{itemize}
+%     \item \textbf{Annualized Return:} $1.2990$
+%     \item \textbf{Annualized Standard Deviation:} $0.3955$
+%     \item \textbf{Sharpe Ratio:} $3.1582$
+% \end{itemize}
+
+\subsection*{Conclusion}
+
+By introducing a risk-free asset, we have successfully identified the Tangency Portfolio, which is the optimal portfolio of risky assets for any rational investor. The resulting Capital Market Line (CML) provides a new set of investment opportunities that are superior to those on the original efficient frontier, as they offer a better return for each unit of risk.
+
+This analysis demonstrates a core principle of modern finance: the investment decision can be separated into two parts. First, identify the single best risky portfolio (the Tangency Portfolio), and second, allocate funds between it and a risk-free asset according to personal risk tolerance.

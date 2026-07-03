@@ -1,0 +1,6 @@
+1. Chapter 3 (Hadoop the Definitive Guide)
+2. Chapter 7 (Hadoop the Definitive Guide)
+3. MapReduce Theory (Data Algorithms Book)
+4. Partitioner
+5. Join-select
+6. CustomWriter

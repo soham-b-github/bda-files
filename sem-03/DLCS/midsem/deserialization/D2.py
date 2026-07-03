@@ -1,0 +1,8 @@
+import pickle
+
+# Load the malicious object (simulate receiving it from attacker)
+with open('evil_pickle.data', 'rb') as f:
+    data = f.read()
+    pickle.loads(data)  # This will execute: os.system("echo You have been hacked!")
+    print("You have been hacked! Hahaha!! ")
+

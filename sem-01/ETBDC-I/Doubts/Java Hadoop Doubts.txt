@@ -1,0 +1,12 @@
+Java Hadoop Doubts
+
+1. If reflection approach is used to extract information about the classes and its corresponding data members and field, then what is the difference between extension of classes to subclasses?
+
+Ans : Static binding : class already exists and compiled and hence invoked directly at runtime
+	Dynamic binding : class created during runtime and invoked while on the run; here reflection is used.
+
+2. Does block replication consume more space? If not, how is it even working? If it does consume more space, then how is space being optimized at every data node (local computer machine) within a Hadoop cluster (local area network)?
+
+Ans : Eraser Encoding or relational encoding. (In low level, if one integer is stored in one data node. Then we store xor(all integers). So if one data node is lost, then we can retrieve the lost data node by using the relational encoded format.)
+
+3. 

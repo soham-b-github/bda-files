@@ -1,0 +1,16 @@
+1. Take name.txt and rec.txt as input.
+A. Use Hadoop to do the following:
+Select id, name, title, address where id satisfies the condition 5 < id < 9. Store output in /output1.txt
+(name.txt, rec.txt).
+id = column 1 of the data
+Select id, name, title, address where id satisfies the condition 1 < id < 5. Store output in /output1.txt
+(name.txt, rec.txt).
+id = column 1 of the data
+
+2. Take caller.txt as input
+Col1: ID, Col2: Name, Col3: Age, Col4: Gender Col5: Number of calls
+Age Range:
+5-10, 15-20, 21-30, 31-80
+Gender: Male, Female
+A. For each age range, for each gender, find the caller who made maximum number of calls with the number
+of call

@@ -1,0 +1,5 @@
+Classroom Practice Problem Solution
+1. Line Count
+2. Word Count
+3. Error > F1 and Warning > F2
+4. Join
