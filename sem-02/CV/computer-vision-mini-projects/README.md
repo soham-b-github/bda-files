@@ -6,7 +6,7 @@ This repository contains the report, data-files and jupyter notebook file for th
 
 ## Authors
 
-- **Soham Bhattacharya [Reg.No.: B2430059], Semester 2, M.Sc. Big Data Analytics** [LinkedIn](https://www.linkedin.com/in/bhattacharyasoham026/)
-- **Darpan Bhattacharya [Reg.No.: B2430044], Semester 2, M.Sc. Big Data Analytics** [LinkedIn](https://in.linkedin.com/in/darpan-bhattacharya/) <br>
+#### [Soham Bhattacharya](https://www.linkedin.com/in/bhattacharyasoham026/) [Reg.No.: B2430059] & [Darpan Bhattacharya](https://in.linkedin.com/in/darpan-bhattacharya/) [Reg.No.: B2430044], Semester 2, M.Sc. Big Data Analytics
+<br>
   &nbsp;Ramakrishna Mission Vivekananda Educational and Research Institute <br>
--- Duration: ***January 2025 to May 2025***
+- Duration: ***January 2025 to May 2025***
