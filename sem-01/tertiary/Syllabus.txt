@@ -1,0 +1,46 @@
+Machine Learning Syllabus
+	1. Chapter 1: ML Landscape
+	2. Chapter 2: End-to-end ML Project
+	3. Chapter 3: Classification
+	4. Chapter 4: Training Models (Regression)
+	5. Chapter 5: Support Vector Machines
+	6. Chapter 6: Decision Trees
+
+
+
+Java Hadoop Syllabus
+	Chapter 1: (Basic)
+	Chapter 2: (Ig helpful for reference)
+	(Application-based problem chapters using MapReduce)
+	Chapter 6: Moving Average
+	Chapter 7: Market Basket Analysis
+	Chapter 8: Common Friends
+	Chapter 12,13: K-Means and K-NN(Ig egulo thakbe, cause once Sir mentioned this. For reference, you can study)
+
+
+DSA Syllabus
+	1. Python Introduction
+	2. Analysis of Algorithms, Asymptotic Notations
+	3. Recursion
+	4. Arrays
+	5. Stacks
+	6. Queues
+	7. LinkedLists
+	8. Trees
+
+
+
+Statistics Syllabus
+	Chapter 1: Introduction
+	Chapter 2: Different DataTypes in Statistics
+	Chapter 3: Data Representation
+	Chapter 4: Data Summary Measures
+	Chapter 5: Bivariate Data and Correlation
+	Chapter 6: 
+	Chapter 7: Sampling Theory [SRSWR, SRSWOR, Normal, Std Normal, Chisq, t, F, distribution of sample mean & variances]
+	Chapter 8: Statistical Inference [Point Estimation (MME, MLE), Unbiased, Sufficiency, Consistency, Efficiency]
+
+
+
+
+Probability and Stochastic Processes
