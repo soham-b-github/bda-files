@@ -1,0 +1,69 @@
+Step-by-Step Solution Guide for Survival Analysis in R
+
+1. Load Required Packages
+r
+Copy
+Edit
+library(survival)
+library(survminer)  # for nice plots
+
+2. Prepare Your Data
+You need:
+
+Survival time: e.g., time
+
+Event status: 1 = event occurred, 0 = censored
+
+Group variable: e.g., group (factor: "A", "B")
+
+Example dataset:
+
+r
+Copy
+Edit
+# Example data
+time <- c(5, 10, 12, 8, 15, 7, 9, 6)
+status <- c(1, 0, 1, 1, 0, 1, 1, 0)
+group <- c("A", "A", "A", "B", "B", "B", "A", "B")
+
+data <- data.frame(time, status, group)
+
+3. Create a Survival Object
+r
+Copy
+Edit
+surv_obj <- Surv(time = data$time, event = data$status)
+
+4. Compare Groups with Log-Rank Test
+To see if survival differs between the two groups:
+
+r
+Copy
+Edit
+survdiff(surv_obj ~ group, data = data)
+This is the log-rank test — great for comparing survival curves.
+
+5. Fit a Cox Proportional Hazards Model
+To estimate hazard ratios between groups:
+
+r
+Copy
+Edit
+cox_model <- coxph(surv_obj ~ group, data = data)
+summary(cox_model)
+This gives you:
+
+Hazard ratio
+
+Confidence intervals
+
+p-values
+
+6. Optional: Plot Kaplan-Meier Curves
+r
+Copy
+Edit
+fit_km <- survfit(surv_obj ~ group, data = data)
+ggsurvplot(fit_km, data = data, pval = TRUE)
+📝 What to Write in Your Lab Answer
+"To compare survival between two groups with right-censored data, I use the survdiff() function for a log-rank test. To support the analysis further, I fit a Cox proportional hazards model using coxph(). This provides hazard ratios and statistical significance for the group effect."
